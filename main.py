@@ -1,12 +1,5 @@
 from itertools import cycle
 
-with open('entrada.txt', 'r') as entrada:
-    global paginas, processos, pos_processos
-    paginas = int(entrada.readline())
-    processos = [int(num) for num in entrada]
-    pos_processos = {k: 0 for k in processos}
-    global ciclo
-    ciclo = cycle([i for i in range(paginas)])
 swap = []
 memoria = []
 tabela_paginas = [
@@ -44,8 +37,10 @@ paginas = [
     "1110010101010100101",
     "1111010101010111111",
 ]
+
 def tranforma_bits_inteiro(bits):
     return int(bits, 2)
+    
 def escalonador(logico):
     posi = tranforma_bits_inteiro(logico[:4])
     pg = tabela_paginas[posi][0]
@@ -92,31 +87,7 @@ def remover_processo(logico):
                         tabela_paginas[j][1] = 1
                         print("Processo encontrado na memoria")
                         break
-"""def LRU(num_quadros, processos):
-    quadros = [0]*num_quadros
-    falta_de_quadros = 0
-    for i, processo in enumerate(processos[:num_quadros]):
-        quadros[i] = processo
-        falta_de_quadros += 1
-
-    for i, processo_atual in enumerate(processos[num_quadros:], start=num_quadros):
-        if processo_atual in quadros:
-            continue
-
-        pos_processos = {}
-        for index, processo_passado in enumerate(processos[:i]):
-            if processo_passado in quadros:
-                pos_processos[processo_passado] = index
-
-        quadro_subst = min(pos_processos, key=pos_processos.get)
-        quadros[quadros.index(quadro_subst)] = processo_atual
-
-        falta_de_quadros += 1
-
-    print(f'LRU {falta_de_quadros}')
-
-
-LRU(paginas, processos)"""
+# Testes
 print(escalonador(paginas[7]))
 print(escalonador(paginas[-1]))
 print(f"Memoria {memoria}")
